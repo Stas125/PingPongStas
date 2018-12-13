@@ -14,6 +14,7 @@ public class PongGame extends ApplicationAdapter {
     int livesCount = 3;
 	BitmapFont font;
 	Paddle paddle;
+	int catchBallBonus = 100;
 
 	@Override
 	public void create () {
@@ -84,7 +85,7 @@ public class PongGame extends ApplicationAdapter {
 			if (ball.y < paddle.texture.getHeight()  + paddle.y && ball.y > paddle.y){
 				ball.velocityY = -ball.velocityY;
 				soundManager.playRandomBounceSound();
-				score += 100;
+				score += catchBallBonus;
 			}
 		}
 		//мяч отскакивает от левого края битки
