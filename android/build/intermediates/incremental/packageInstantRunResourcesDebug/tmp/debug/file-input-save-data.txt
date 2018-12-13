@@ -1,0 +1,23 @@
+#Internal package file, do not edit.
+#Thu Dec 06 19:50:30 EET 2018
+2.base=D\:\\Programming\\Android\\_Stas\\PingPong\\android\\build\\intermediates\\assets\\debug
+0.path=bounce1.ogg
+2.baseType=DIRECTORY
+3.base=D\:\\Programming\\Android\\_Stas\\PingPong\\android\\build\\intermediates\\assets\\debug
+2.set=ASSET
+1.path=paddle.bmp
+4.base=D\:\\Programming\\Android\\_Stas\\PingPong\\android\\build\\intermediates\\assets\\debug
+count=5
+2.path=bounce3.ogg
+4.set=ASSET
+3.path=ball_small.png
+3.baseType=DIRECTORY
+1.set=ASSET
+4.path=bounce2.ogg
+1.baseType=DIRECTORY
+0.base=D\:\\Programming\\Android\\_Stas\\PingPong\\android\\build\\intermediates\\assets\\debug
+0.baseType=DIRECTORY
+3.set=ASSET
+1.base=D\:\\Programming\\Android\\_Stas\\PingPong\\android\\build\\intermediates\\assets\\debug
+4.baseType=DIRECTORY
+0.set=ASSET
