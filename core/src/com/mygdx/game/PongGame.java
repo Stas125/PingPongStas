@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -15,12 +16,15 @@ public class PongGame extends ApplicationAdapter {
 	BitmapFont font;
 	Paddle paddle;
 	int catchBallBonus = 100;
+	Texture gameOverLogoTexture;
+	boolean isGameOver;
+	Button closeBtn, replayBtn;
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		font = new BitmapFont();
-		font.getData().setScale(5);
+		font.getData().setScale(3);
 		soundManager = new SoundManager();
 		soundManager.loadSounds();
 		ball = new Ball();
@@ -29,18 +33,34 @@ public class PongGame extends ApplicationAdapter {
 		paddle.loadTexture();
 		paddle.x = (Gdx.graphics.getWidth() - paddle.texture.getWidth()) / 2;
 		ball.reset(paddle);
+		gameOverLogoTexture = new Texture("game_over_logo.jpg");
+		closeBtn = new Button("close_btn.png");
+		closeBtn.x = Gdx.graphics.getWidth() - closeBtn.texture.getWidth();
+		replayBtn = new Button("replay_btn.png");
 	}
 
 	@Override
 	public void render () {
-		paddle.move();
-		ball.ballStartFrameCounter++;
-		ball.move(paddle);
+		if(isGameOver && closeBtn.isClicked()){
+			System.exit(0);
+		}
+		if(isGameOver && replayBtn.isClicked()){
+			System.exit(0);
+		}
+
+		if(!isGameOver) {
+			paddle.move();
+			ball.ballStartFrameCounter++;
+			ball.move(paddle);
+		}
 		//теряем мяч
 		if(ball.y < -ball.texture.getHeight()){
             soundManager.loseBallSound.play();
 			ball.reset(paddle);
 			livesCount--;
+			if (livesCount == 0){
+				isGameOver = true;
+			}
 		}
 
 		collideBall();
@@ -50,6 +70,12 @@ public class PongGame extends ApplicationAdapter {
 		batch.begin();
 		ball.draw(batch);
 		paddle.draw(batch);
+		if(isGameOver) {
+			batch.draw(gameOverLogoTexture, (Gdx.graphics.getWidth() - gameOverLogoTexture.getWidth()) / 2,
+					(Gdx.graphics.getHeight() - gameOverLogoTexture.getHeight()) / 2);
+			closeBtn.draw(batch);
+			replayBtn.draw(batch);
+		}
 		font.draw(batch, "Score: " + score + "  Lives: " + livesCount, 0, Gdx.graphics.getHeight());
 		batch.end();
 	}
@@ -61,6 +87,9 @@ public class PongGame extends ApplicationAdapter {
 		ball.dispose();
 		paddle.dispose();
 		soundManager.dispose();
+		gameOverLogoTexture.dispose();
+		closeBtn.dispose();
+		replayBtn.dispose();
 	}
 
 	void collideBall(){
